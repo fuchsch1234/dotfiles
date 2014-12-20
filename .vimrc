@@ -3,16 +3,18 @@ let mapleader=";"
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'pthrasher/conqueterm-vim'
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-scripts/YankRing.vim'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'pthrasher/conqueterm-vim'
+
+call vundle#end()
 
 filetype plugin indent on
 
