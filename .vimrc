@@ -8,15 +8,19 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'pthrasher/conqueterm-vim'
+Plugin 'SearchComplete'
+Plugin 'scratch.vim'
 
 call vundle#end()
 
 filetype plugin indent on
+syntax on
 
 runtime! ftplugin/man.vim
 
@@ -24,9 +28,14 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set relativenumber
+set wildmenu
+
+set splitbelow
+set splitright
 
 let NERDTreeQuitOnOpen = 1
 let NERDTreeBookmarkFile="$HOME/.vim/NERDTreeBookmarks"
+let ConqueTerm_CloseOnEnd = 1
 hi Directory ctermfg=3
 
 " Clang complete options
@@ -36,6 +45,8 @@ let g:clang_periodic_quickfix=1
 
 let g:yankring_history_dir = '$HOME/.vim'
 
+colorscheme delek
+
 nnoremap <Leader>t :buffers<CR>:buffer<Space>
 inoremap jk <ESC>l
 vnoremap jk <ESC>
@@ -44,6 +55,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+inoremap <C-j> <Esc><C-w><C-j>
+inoremap <C-k> <Esc><C-w><C-k>
+inoremap <C-h> <Esc><C-w><C-h>
+inoremap <C-l> <Esc><C-w><C-l>
 " Mappings for quickfix
 nnoremap <Leader>ne :<C-u>cnext<CR>
 nnoremap <Leader>pr :<C-u>cprev<CR>
@@ -55,6 +70,19 @@ nnoremap <Leader>eb :split ~/.bashrc<CR>
 
 nnoremap <Leader><F8> :NERDTreeToggle<CR>
 nnoremap <Leader>p :YRShow<CR>
+nnoremap <Leader>x :Sscratch<CR>
+nnoremap <Leader>r :%s/<C-r><C-w>/
+
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+
+nnoremap <Leader>m :w \| make<cr>
+nnoremap <Leader>b :ConqueTermVSplit bash<cr>
+nnoremap <Leader>q :call QuickFixToggle()<cr>
+nnoremap <Leader>ne :cnext<cr>
+nnoremap <Leader>pr :cprevious<cr>
+
+cnoreab make w \| make
 
 au BufLeave ~/.vimrc :source ~/.vimrc
 au BufLeave ~/.tumx.conf :source ~/.tmux.conf
@@ -77,6 +105,15 @@ augroup *.py
 	au FileType python set omnifunc=pythoncomplete#Complete
 	au FileType python let g:SuperTabDefaultCompletionType = "context"
 	au FileType python set completeopt=menuone,longest,preview
+augroup END
+
+augroup conque
+	au FileType conque_term set colorcolumn=0
+	au FileType conque_term :autocmd! BufEnter <buffer> :startinsert
+	au FileType conque_term inoremap <buffer> <Leader><C-j> <ESC><C-w><C-j>
+	au FileType conque_term inoremap <buffer> <Leader><C-k> <ESC><C-w><C-k>
+	au FileType conque_term inoremap <buffer> <Leader><C-h> <ESC><C-w><C-h>
+	au FileType conque_term inoremap <buffer> <Leader><C-l> <ESC><C-w><C-l>
 augroup END
 
 augroup man
