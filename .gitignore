@@ -1,1 +1,4 @@
 yankring_history_v2.txt
+!vim/bundle/Vundle.vim
+!vim/bundle/.vundle
+vim/bundle/*
