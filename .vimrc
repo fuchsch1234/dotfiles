@@ -6,7 +6,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -33,10 +33,12 @@ set wildmenu
 set splitbelow
 set splitright
 
+colorscheme delek
+
 let NERDTreeQuitOnOpen = 1
 let NERDTreeBookmarkFile="$HOME/.vim/NERDTreeBookmarks"
 let ConqueTerm_CloseOnEnd = 1
-hi Directory ctermfg=3
+hi Directory ctermfg=cyan
 
 " Clang complete options
 let g:clang_auto_select=1
@@ -45,7 +47,6 @@ let g:clang_periodic_quickfix=1
 
 let g:yankring_history_dir = '$HOME/.vim'
 
-colorscheme delek
 
 nnoremap <Leader>t :buffers<CR>:buffer<Space>
 inoremap jk <ESC>l
@@ -82,11 +83,11 @@ nnoremap <Leader>q :call QuickFixToggle()<cr>
 nnoremap <Leader>ne :cnext<cr>
 nnoremap <Leader>pr :cprevious<cr>
 
+nnoremap <Leader>c :r!xsel<cr>
+
 cnoreab make w \| make
 
 au BufLeave ~/.vimrc :source ~/.vimrc
-au BufLeave ~/.tumx.conf :source ~/.tmux.conf
-au BufLeave ~/.bashrc :source ~/.bashrc
 
 augroup *.cabal
 	au BufNewFile,BufRead *.cabal set expandtab
@@ -102,6 +103,9 @@ augroup *.hs
 augroup END
 
 augroup *.py
+	au BufNewFile,BufRead *.py set noexpandtab
+	au BufNewFile,BufRead *.py set tabstop=8
+	au BufNewFile,BufRead *.py set shiftwidth=8
 	au FileType python set omnifunc=pythoncomplete#Complete
 	au FileType python let g:SuperTabDefaultCompletionType = "context"
 	au FileType python set completeopt=menuone,longest,preview
